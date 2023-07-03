@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(coding_prac)
+project(four_point_nav)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -37,22 +37,7 @@ include_directories(include)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(map_saver src/map_saver.cpp)
 add_executable(fourpointnav src/fourpointnav.cpp)
-
-  
-# With OpenCV, nav_msgs, geometry_msgs and interfaces
-ament_target_dependencies(map_saver
-  "rclcpp" 
-  "std_msgs"
-  "rclcpp_action"
-  "nav2_msgs"
-  "tf2_ros"
-  "nav_msgs"
-  OpenCV
-  "geometry_msgs"
-  "nav2_util"
-  )
 
 ament_target_dependencies(fourpointnav
   "rclcpp" 
@@ -66,28 +51,15 @@ ament_target_dependencies(fourpointnav
   "nav2_util"
   )
 
-target_include_directories(map_saver PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
 
 target_include_directories(fourpointnav PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
 install(TARGETS 
-  map_saver
   fourpointnav
   DESTINATION lib/${PROJECT_NAME})
 
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(DIRECTORY
-  config
-  DESTINATION share/${PROJECT_NAME}
-)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
